@@ -18,6 +18,7 @@ class CreateArticlesTable extends Migration
             $table->integer('category_id');
             $table->integer('sub_category_id')->nullable(true);
             $table->string('title');
+            $table->string('slug')->nullable();
             $table->text('body');
             $table->string('thumbnail');
             $table->integer('viewer')->default(1);

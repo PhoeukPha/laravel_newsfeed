@@ -18,15 +18,15 @@
                 @foreach($menu as $value)
                     @if(count($value->subcategory) > 0)
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{$value->name}}</a>
+                            <a href="{{route('getByCategory',$value->name)}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{$value->name}}</a>
                             <ul class="dropdown-menu" role="menu">
                                 @foreach($value->subcategory as $subCat)
-                                    <li><a href="#">{{$subCat->name}}</a></li>
+                                    <li><a href="{{route('getBySubCategory',$subCat->name)}}">{{$subCat->name}}</a></li>
                                 @endforeach
                             </ul>
                         </li>
                     @else
-                        <li><a href="">{{$value->name}}</a></li>
+                        <li><a href="{{route('getByCategory',$value->name)}}">{{$value->name}}</a></li>
                     @endif
                 @endforeach
             </ul>

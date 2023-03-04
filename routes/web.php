@@ -20,7 +20,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::resource('/', FrontendController::class);
-
+Route::get('article/{slug}',[FrontendController::class,'detail'])->name('article.detail');
+Route::get('categories/{name}',[FrontendController::class,'get_data_by_category'])->name('getByCategory');
+Route::get('categories/sub_categories/{name}',[FrontendController::class,'get_data_by_sub_category'])->name('getBySubCategory');
 
 Route::group(['prefix' => 'admin','middleware' => 'auth'],function (){
     Route::resource('dashboard', DashboardController::class);

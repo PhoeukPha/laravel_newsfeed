@@ -4,11 +4,11 @@
             <div class="slick_slider">
                 @foreach($slide as $value)
                     <div class="single_iteam">
-                        <a href="">
+                        <a href="{{route('article.detail',$value->slug)}}">
                             <img src="{{asset('frontend/assets/images/thumbnail')}}/{{$value->thumbnail}}" alt="">
                         </a>
                         <div class="slider_article">
-                            <h2><a class="slider_tittle" href="">{{$value->title}}</a></h2>
+                            <h2><a class="slider_tittle" href="{{route('article.detail',$value->slug)}}">{{$value->title}}</a></h2>
                         </div>
                     </div>
                 @endforeach
@@ -24,11 +24,11 @@
                         @foreach($last_post as $val)
                         <li>
                             <div class="media">
-                                <a href="" class="media-left">
+                                <a href="{{route('article.detail',$val->slug)}}" class="media-left">
                                     <img alt="" src="{{asset('frontend/assets/images/thumbnail')}}/{{$val->thumbnail}}">
                                 </a>
                                 <div class="media-body">
-                                    <a href="" class="catg_title">{{$val->title}}</a>
+                                    <a href="{{route('article.detail',$val->slug)}}" class="catg_title">{{$val->title}}</a>
                                 </div>
                             </div>
                         </li>

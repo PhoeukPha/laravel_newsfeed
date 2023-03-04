@@ -10,6 +10,17 @@ use File;
 
 class ArticleController extends Controller
 {
+    public function makeSlug($string)
+    {
+        $LNSH = '/[^\-\s\pN\pL]+/u';
+        $SADH   = '/[\-\s]+/';
+
+        $string = preg_replace($LNSH, '', mb_strtolower($string, 'UTF-8'));
+        $string = preg_replace($SADH, '-', $string);
+        $string = trim($string, '-');
+
+        return $string;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -54,6 +65,7 @@ class ArticleController extends Controller
 
         Article::create([
            'title' => $request->input('title'),
+           'slug' => $this->makeSlug($request->input('title')),
             'category_id' => $request->input('category_id'),
             'sub_category_id' => $request->input('sub_category_id'),
             'body' => $request->input('body'),
