@@ -38,6 +38,33 @@
                         <p>articles</p>
                     </a>
                 </li>
+                <li class="nav-header">Administrator</li>
+                <li class="nav-item {{Request::is('admin/users*','admin/roles*','admin/languages*') ? 'menu-open' : ''}}">
+                    <a href="#" class="nav-link {{Request::is('admin/users*','admin/roles*','admin/languages*') ? 'active' : ''}}">
+                        <i class="nav-icon fa-solid fa-gears"></i>
+                        <p>
+                            Settings
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{route('users.index')}}" class="nav-link {{ Request::is('admin/users*') ? 'active cus_active ' : '' }}">
+                                <p>Users</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('roles.index')}}" class="nav-link {{ Request::is('admin/roles*') ? 'active cus_active ' : '' }}">
+                                <p>Roles</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('languages')}}" class="nav-link {{ Request::is('admin/languages*') ? 'active cus_active ' : '' }}">
+                                <p>Language</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
