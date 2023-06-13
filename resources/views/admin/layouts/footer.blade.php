@@ -18,7 +18,10 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <!-- Summernote -->
 <script src="{{asset('admin/plugins/summernote/summernote-bs4.min.js')}}"></script>
-
+<!-- OPTIONAL SCRIPTS -->
+<script src="{{asset('admin/plugins/chart.js/Chart.js')}}"></script>
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<script src="{{asset('admin/dist/js/pages/dashboard3.js')}}"></script>
 {{-- Axios --}}
 {{--<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>--}}
 
