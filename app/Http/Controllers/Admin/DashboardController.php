@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -14,7 +15,13 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('admin.index');
+        $view = DB::table("articles")
+            ->select(DB::raw('sum(viewer) as total'),DB::raw('date(created_at) as dates'))
+            ->where('created_at', '>=', DB::raw('DATE(NOW()) - INTERVAL 7 DAY'))
+            ->groupBy('dates')
+            ->orderBy('dates','asc')
+            ->get();
+        return view('admin.index',compact('view'));
     }
 
     /**

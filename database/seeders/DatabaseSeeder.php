@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use phpDocumentor\Reflection\Types\This;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,7 +15,9 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-           AdminSeeder::class,
+           PermissionTableSeeder::class,
+           AdministratorTableSeeder::class,
+           LanguageSeeder::class,
         ]);
     }
 }
