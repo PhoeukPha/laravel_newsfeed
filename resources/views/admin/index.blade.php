@@ -35,7 +35,7 @@
                         <div class="card-header border-0">
                             <div class="d-flex justify-content-between">
                                 <h3 class="card-title">Online Visitors</h3>
-{{--                                <a href="javascript:void(0);">View Report</a>--}}
+
                             </div>
                         </div>
                         <div class="card-body">
@@ -45,18 +45,13 @@
                                     <span>Visitors Over Time</span>
                                 </p>
                                 <p class="ml-auto d-flex flex-column text-right">
-{{--                                <span class="text-success">--}}
-{{--                                  <i class="fas fa-arrow-up"></i> 12.5%--}}
-{{--                                </span>--}}
-                                    <span class="text-muted">Last 7 days</span>
+                                    <span class="text-muted">Last 10 days</span>
                                 </p>
                             </div>
                             <!-- /.d-flex -->
-
                             <div class="position-relative mb-4">
                                 <canvas id="visitors-chart" height="200"></canvas>
                             </div>
-
                         </div>
                     </div>
                     <!-- /.card -->
@@ -72,7 +67,6 @@
     /* global Chart:false */
     $(function () {
         'use strict'
-
         var ticksStyle = {
             fontColor: '#495057',
             fontStyle: 'bold'
@@ -83,7 +77,6 @@
 
         var $salesChart = $('#sales-chart')
         var $visitorsChart = $('#visitors-chart')
-        // eslint-disable-next-line no-unused-vars
         var visitorsChart = new Chart($visitorsChart, {
             data: {
                 labels: <?php echo  json_encode($arr_date); ?>,
@@ -95,8 +88,6 @@
                     pointBorderColor: '#007bff',
                     pointBackgroundColor: '#007bff',
                     fill: false
-                    // pointHoverBackgroundColor: '#007bff',
-                    // pointHoverBorderColor    : '#007bff'
                 },
                     {
                         type: 'line',
@@ -106,8 +97,6 @@
                         pointBorderColor: '#ced4da',
                         pointBackgroundColor: '#ced4da',
                         fill: false
-                        // pointHoverBackgroundColor: '#ced4da',
-                        // pointHoverBorderColor    : '#ced4da'
                     }]
             },
             options: {

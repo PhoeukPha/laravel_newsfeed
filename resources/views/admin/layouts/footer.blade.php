@@ -22,8 +22,12 @@
 <script src="{{asset('admin/plugins/chart.js/Chart.js')}}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{asset('admin/dist/js/pages/dashboard3.js')}}"></script>
+
+<!-- date-range-picker -->
+<script src="{{asset('admin/plugins/daterangepicker/daterangepicker.js')}}"></script>
 {{-- Axios --}}
 {{--<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>--}}
+<!-- daterangepicker -->
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
 </body>
@@ -70,4 +74,5 @@
         });
     });
 </script>
+
 </html>

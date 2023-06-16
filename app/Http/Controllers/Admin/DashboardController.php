@@ -17,7 +17,7 @@ class DashboardController extends Controller
     {
         $view = DB::table("articles")
             ->select(DB::raw('sum(viewer) as total'),DB::raw('date(created_at) as dates'))
-            ->where('created_at', '>=', DB::raw('DATE(NOW()) - INTERVAL 7 DAY'))
+            ->where('created_at', '>=', DB::raw('DATE(NOW()) - INTERVAL 10 DAY'))
             ->groupBy('dates')
             ->orderBy('dates','asc')
             ->get();
