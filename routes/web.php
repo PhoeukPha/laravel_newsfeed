@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\HomeController;
+//use App\Http\Controllers\API\v1\ArticleAPIController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,7 +31,7 @@ Route::get('categories/sub_categories/{name}',[FrontendController::class,'get_da
 
 Route::group(['prefix' => 'admin','middleware' => 'auth'],function (){
     Route::resource('dashboard', DashboardController::class);
-
+    Route::post('dashboard',[DashboardController::class,'index'])->name('index.date_range');
     Route::resource('categories', CategoryController::class);
     Route::post('categories/change-status',[CategoryController::class,'changeStatus'])->name('categories.changeStatus');
 //

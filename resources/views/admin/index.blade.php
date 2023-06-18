@@ -35,7 +35,7 @@
                         <div class="card-header border-0">
                             <div class="d-flex justify-content-between">
                                 <h3 class="card-title">Online Visitors</h3>
-
+                                <a class="float-right" data-toggle="modal" data-placement="bottom" data-target="#filter_home"><i class="fas fa-filter"></i></a>
                             </div>
                         </div>
                         <div class="card-body">
@@ -61,7 +61,39 @@
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
-
+<div class="modal fade" id="filter_home" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content card card-gray">
+            <form method="POST" action="{{route('index.date_range')}}">
+                @csrf
+                <div class="card-header">
+                    <h5 class="card-title"><i class="fas fa-filter"></i>&nbsp;&nbsp;Filter</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 pr-3 pl-3">
+                            <div class="form-group">
+                                <label class="mb-0">Date From/To</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text">
+                                      <i class="far fa-calendar-alt"></i>
+                                      </span>
+                                    </div>
+                                    <input type="text" class="float-right form-control" name="daterange" value="<?php echo date('m/d/Y'); ?>">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-danger float-right"><i class="fas fa-check-double"></i>&nbsp;&nbsp;Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 @include('admin.layouts.footer')
 <script>
     /* global Chart:false */
@@ -123,7 +155,9 @@
                         },
                         ticks: $.extend({
                             beginAtZero: true,
-                            suggestedMax: <?php echo max($arr_view); ?>
+                            suggestedMax: <?php if (count($vi) > 0){
+                                echo max($arr_view);
+                            } ?>
                         }, ticksStyle)
                     }],
                     xAxes: [{

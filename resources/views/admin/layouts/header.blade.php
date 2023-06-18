@@ -19,8 +19,8 @@
     <link rel="stylesheet" href="{{asset('admin/plugins/summernote/summernote-bs4.min.css')}}">
     <!-- daterange picker -->
     <link rel="stylesheet" href="{{asset('admin/plugins/daterangepicker/daterangepicker.css')}}">
-
-
+    <!-- jQuery -->
+    <script src="{{asset('admin/plugins/jquery/jquery.min.js')}}"></script>
 </head>
 <body class="hold-transition sidebar-mini">
 <!-- Site wrapper -->
