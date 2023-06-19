@@ -2,12 +2,12 @@
     <div class="footer_top">
         <div class="row">
             <div class="col-lg-4 col-md-4 col-sm-4">
-                <div class="footer_widget wow fadeInLeftBig">
+                <div class="footer_widget">
                     <h2>Flickr Images</h2>
                 </div>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-4">
-                <div class="footer_widget wow fadeInDown">
+                <div class="footer_widget">
                     <h2>Tag</h2>
                     <ul class="tag_nav">
                         <li><a href="#">Games</a></li>
@@ -22,7 +22,7 @@
                 </div>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-4">
-                <div class="footer_widget wow fadeInRightBig">
+                <div class="footer_widget">
                     <h2>Contact</h2>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
                         do eiusmod tempor incididunt ut labore et dolore magna aliqua
