@@ -66,7 +66,8 @@
                                                 <td class="tr-body">{{$user->gender ?? 'N/A'}}</td>
                                                 <td class="tr-body">{{$user->phone_number ?? 'N/A'}}</td>
                                                 <td class="tr-body">{{$user->email ?? 'N/A'}}</td>
-                                                <td class="tr-body">{{$user->getRoleNames()[0]}}</td>
+{{--                                                <td class="tr-body">{{$user->getRoleNames()[0]}}</td>--}}
+                                                <td class="tr-body">Admin</td>
                                                 <td class="tr-body">{{ Carbon\Carbon::parse($user->created_at)->diffForHumans()}}</td>
                                                 <td class="tr-body text-center">
                                                     <div class="form-group">

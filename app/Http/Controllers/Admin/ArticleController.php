@@ -112,9 +112,7 @@ class ArticleController extends Controller
             'body' => 'required',
             'thumbnail.*' => 'required'
         ]);
-
         $data = Article::findOrFail(decrypt($id));
-
         if ($request->hasFile('thumbnail')){
             $path = public_path('/frontend/assets/images/thumbnail/'.$data->thumbnail);
             if (File::exists($path)){
@@ -127,7 +125,6 @@ class ArticleController extends Controller
         }else{
             $imgName = $data->thumbnail;
         }
-
         $data->update([
             'title' => $request->input('title'),
             'category_id' => $request->input('category_id'),
@@ -135,7 +132,6 @@ class ArticleController extends Controller
             'body' => $request->input('body'),
             'thumbnail' => $imgName,
         ]);
-
         return redirect()->route('articles.index')->with('success','Article Updated Successful.');
     }
 
@@ -164,7 +160,6 @@ class ArticleController extends Controller
     }
     public function changeStatus (Request $request){
         $data = Article::find($request->id)->update(['status' => $request->status]);
-
         return response()->json(['success','Status Change Successful']);
     }
 }
