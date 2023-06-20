@@ -34,6 +34,7 @@
                             <span class="text-uppercase text-blue-steel text-bold">{{__('List all')}} {{__('Sub Category')}}</span>
                         </div>
                         <div class="card-body">
+                            @include('admin.articles.partials.search')
                             <div class="table-responsive-sm">
                                 <div class="dataTabkes_wrapper ">
                                     <table id="table_categories" class="table table-bordered table-striped table-hover table-sm">
@@ -50,57 +51,68 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($data as $key => $value)
-                                            <tr>
-                                                <td class="tr-body text-center">{{$key+1}}</td>
-                                                <td class="tr-body">{{$value->title}}</td>
-                                                <td class="tr-body">{{$value->category->name}}</td>
-                                                <td class="tr-body">{{$value->subcategory->name ?? 'N/A'}}</td>
-                                                <td class="tr-body">{{ Carbon\Carbon::parse($value->created_at)->diffForHumans()}} </td>
-                                                <td class="tr-body">{{$value->viewer}}</td>
-                                                <td class="tr-body text-center">
-                                                    <div class="form-group">
-                                                        <div class="custom-control custom-switch">
-                                                            <input type="checkbox" class="custom-control-input"
-                                                                   {{($value->status) ? 'checked' : ''}}
-                                                                   onclick="changeCategoryStatus(event.target, {{ $value->id }});" id="status{{$value->id}}">
-                                                            <label class="custom-control-label pointer" for="status{{$value->id}}"></label>
+                                            @if(!empty($data) && count($data) > 0)
+                                                @foreach($data as $key => $value)
+                                                    <tr>
+                                                        <td class="tr-body text-center">{{$key+1}}</td>
+                                                        <td class="tr-body">{{$value->title}}</td>
+                                                        <td class="tr-body">{{$value->category->name}}</td>
+                                                        <td class="tr-body">{{$value->subcategory->name ?? 'N/A'}}</td>
+                                                        <td class="tr-body">{{ Carbon\Carbon::parse($value->created_at)->diffForHumans()}} </td>
+                                                        <td class="tr-body">{{$value->viewer}}</td>
+                                                        <td class="tr-body text-center">
+                                                            <div class="form-group">
+                                                                <div class="custom-control custom-switch">
+                                                                    <input type="checkbox" class="custom-control-input"
+                                                                        {{($value->status) ? 'checked' : ''}}
+                                                                        onclick="changeCategoryStatus(event.target, {{ $value->id }});" id="status{{$value->id}}">
+                                                                    <label class="custom-control-label pointer" for="status{{$value->id}}"></label>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td class="tr-body text-center">
+                                                            <a href="{{route('articles.show',encrypt($value->id))}}" class="btn btn-sm" title="Edit">
+                                                                <i class="fa fa-pencil text-blue" aria-hidden="true"></i>
+                                                            </a>
+                                                            <button type="button" class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{$value->id}}">
+                                                                <i class="fa-solid fa-trash-can text-red"></i>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                    <!-- Modal Delete-->
+                                                    <div class="modal fade" id="staticBackdrop{{$value->id}}" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <form action="{{route('articles.destroy',encrypt($value->id))}}" method="post" enctype="multipart/form-data">
+                                                                    @csrf
+                                                                    {!! method_field('DELETE') !!}
+                                                                    <div class="modal-header">
+                                                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Delete</h1>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        {{__('Are you sure!. Do you want to delete?')}}
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="submit" class="btn btn-sm btn-danger" >Delete</button>
+                                                                        <button type="button" class="btn btn-sm btn-light" data-bs-dismiss="modal">Cancel</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </td>
-                                                <td class="tr-body text-center">
-                                                    <a href="{{route('articles.show',encrypt($value->id))}}" class="btn btn-sm" title="Edit">
-                                                        <i class="fa fa-pencil text-blue" aria-hidden="true"></i>
-                                                    </a>
-                                                    <button type="button" class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{$value->id}}">
-                                                        <i class="fa-solid fa-trash-can text-red"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <!-- Modal Delete-->
-                                            <div class="modal fade" id="staticBackdrop{{$value->id}}" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <form action="{{route('articles.destroy',encrypt($value->id))}}" method="post" enctype="multipart/form-data">
-                                                            @csrf
-                                                            {!! method_field('DELETE') !!}
-                                                            <div class="modal-header">
-                                                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Delete</h1>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                {{__('Are you sure!. Do you want to delete?')}}
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="submit" class="btn btn-sm btn-danger" >Delete</button>
-                                                                <button type="button" class="btn btn-sm btn-light" data-bs-dismiss="modal">Cancel</button>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                          @endforeach
+                                                    @endforeach
+                                                @else
+                                                <tr>
+                                                    <td colspan="10" align="center">
+                                                        <span>{{ __('No Data') }}</span>
+                                                    </td>
+                                                </tr>
+                                            @endif
                                         </tbody>
                                     </table>
+                                    <div class="col">
+                                        {!! $data->links('vendor.pagination.bootstrap-4') !!}
+                                    </div>
                                 </div>
                             </div>
                         </div>
