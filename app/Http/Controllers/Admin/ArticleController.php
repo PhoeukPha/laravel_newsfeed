@@ -56,7 +56,6 @@ class ArticleController extends Controller
             'body' => 'required',
             'thumbnail.*' => 'required'
         ]);
-
 //        Thumbnail
         $img = $request->file('thumbnail');
         $imgName = date('YmdHis').'.'.$img->getClientOriginalExtension();

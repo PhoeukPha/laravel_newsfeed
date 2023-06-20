@@ -20,7 +20,6 @@ class AdministratorTableSeeder extends Seeder
         $permissions = Permission::pluck('id','id')->all();
         $role = Role::create(['name' => 'Administrator','description'=>'Administrator']);
         $role->syncPermissions($permissions);
-
         $user = User::create([
             'first_name'=>'System',
             'last_name'=>'Control',

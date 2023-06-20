@@ -38,7 +38,7 @@
                         <div class="card-body">
                             <div class="table-responsive-sm">
                                 <div class="dataTabkes_wrapper ">
-                                    <table id="table_roles" class="table table-bordered table-striped table-hover table-sm">
+                                    <table id="table_roles" class="table table-bordered table-striped table-hover table-sm datatable">
                                         <thead>
                                         <tr>
                                             <th class="th-header" style="width: 50px">{{__('No')}}</th>
@@ -66,8 +66,7 @@
                                                 <td class="tr-body">{{$user->gender ?? 'N/A'}}</td>
                                                 <td class="tr-body">{{$user->phone_number ?? 'N/A'}}</td>
                                                 <td class="tr-body">{{$user->email ?? 'N/A'}}</td>
-{{--                                                <td class="tr-body">{{$user->getRoleNames()[0]}}</td>--}}
-                                                <td class="tr-body">Admin</td>
+                                                <td class="tr-body">{{$user->getRoleNames()[0]}}</td>
                                                 <td class="tr-body">{{ Carbon\Carbon::parse($user->created_at)->diffForHumans()}}</td>
                                                 <td class="tr-body text-center">
                                                     <div class="form-group">
