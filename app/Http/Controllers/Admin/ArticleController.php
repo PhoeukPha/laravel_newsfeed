@@ -26,11 +26,20 @@ class ArticleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = Article::orderby('created_at','desc')->get();
+        $perPage = $request->query('per_page') ?? 10;
+        if ($request->query('title') || $request->query('menu_id')) {
+            $data = Article::search(
+                $request->query('title'),
+                $request->query('menu_id')
+            )->paginate($perPage);
+        }else{
+            $data = Article::orderby('created_at','desc')->paginate($perPage);
+        }
 
-        return view('admin.articles.index',compact('data'));
+        return view('admin.articles.index',compact('data'))->with('i', ($request->input('page', 1) - 1) * $perPage);
+    
     }
 
     /**
