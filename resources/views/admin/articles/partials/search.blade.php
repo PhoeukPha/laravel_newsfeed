@@ -27,6 +27,12 @@
                         @endforeach
                     </select>
                 </div>
+{{--                <div class="form-group mr-3">--}}
+{{--                    <button type="button" class="btn btn-tool" onclick='exportTableToCSV("Task.csv")'>--}}
+{{--                        Export CSV--}}
+{{--                    </button>--}}
+{{--                </div>--}}
+
                 <div class="form-group mr-3">
                     <label for="page">{{__('Page')}}</label><br>
                     <select class="form-control select2" name="per_page" id="per_page">
@@ -39,6 +45,9 @@
                 <div class="form-group">
                     <label for="">{{__('Action')}}</label>
                     <div class="group-action">
+                        <button type="button" class="mr-2 btn-reset btn btn-sm btn-outline-success" onclick="exportTableToCSV('<?php echo date("Ymdhis").'.csv'; ?>')">
+                            <i class="fas fa-file-export mr-2 mt-2"></i>{{__('Export')}}
+                        </button>
                         <a href="{{route('articles.index')}}" class="mr-2 btn-reset btn btn-sm btn-outline-danger">
                             <i class="fa-solid fa-arrow-rotate-left mr-2 mt-2 fa-spin fa-spin-reverse"></i>{{__('Reset')}}
                         </a>

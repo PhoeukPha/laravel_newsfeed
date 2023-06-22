@@ -30,6 +30,8 @@ Route::get('categories/{name}',[FrontendController::class,'get_data_by_category'
 Route::get('categories/sub_categories/{name}',[FrontendController::class,'get_data_by_sub_category'])->name('getBySubCategory');
 
 Route::group(['prefix' => 'admin','middleware' => 'auth'],function (){
+    Route::get('export/',[ArticleController::class,'export'])->name('export');
+    Route::post('articles/date',[ArticleController::class,'index'])->name('article.date');
     Route::resource('dashboard', DashboardController::class);
     Route::post('dashboard',[DashboardController::class,'index'])->name('index.date_range');
     Route::resource('categories', CategoryController::class);

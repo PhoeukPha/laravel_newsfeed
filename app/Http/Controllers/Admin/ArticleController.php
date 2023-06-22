@@ -6,7 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\Article;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ArticlesExport;
 use File;
+use Symfony\Component\Console\Input\Input;
 
 class ArticleController extends Controller
 {
@@ -34,7 +38,14 @@ class ArticleController extends Controller
                 $request->query('title'),
                 $request->query('menu_id')
             )->paginate($perPage);
-        }else{
+        }
+        else if ($request->has('daterange')){
+            $date = explode('-', $request->input('daterange'));
+            $date_f = date("Y-m-d", strtotime($date['0']));
+            $date_t = date("Y-m-d", strtotime($date['1']));
+            $data = Article::whereBetween('created_at', [$date_f, $date_t])->paginate($perPage);
+        }
+        else{
             $data = Article::orderby('created_at','desc')->paginate($perPage);
         }
 
@@ -169,5 +180,11 @@ class ArticleController extends Controller
     public function changeStatus (Request $request){
         $data = Article::find($request->id)->update(['status' => $request->status]);
         return response()->json(['success','Status Change Successful']);
+    }
+    public function export(Request $request)
+    {
+        $from_date= $request->input;
+        $to_date = $request->to_date;
+        return Excel::download(new ArticlesExport($from_date, $to_date), date('Y-m-d-h-i-s').'.xlsx');
     }
 }
