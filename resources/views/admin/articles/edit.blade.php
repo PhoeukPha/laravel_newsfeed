@@ -90,7 +90,7 @@
     </div>
     <!-- /.content -->
 </div>
-<!-- /.content-wrapper -->
+<!-- /.content-wrapper --> 
 
 @include('admin.layouts.footer')
 <script type="text/javascript">
