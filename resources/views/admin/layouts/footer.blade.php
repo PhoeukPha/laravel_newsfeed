@@ -8,8 +8,6 @@
 </div>
 <!-- ./wrapper -->
 
-<!-- jQuery -->
-<script src="{{asset('admin/plugins/jquery/jquery.min.js')}}"></script>
 <!-- Bootstrap 4 -->
 <script src="{{asset('admin/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <!-- AdminLTE App -->
@@ -18,11 +16,21 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <!-- Summernote -->
 <script src="{{asset('admin/plugins/summernote/summernote-bs4.min.js')}}"></script>
+<!-- OPTIONAL SCRIPTS -->
+<script src="{{asset('admin/plugins/chart.js/Chart.js')}}"></script>
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+<!-- date-range-picker -->
 
 {{-- Axios --}}
 {{--<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>--}}
+<!-- daterangepicker -->
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+<script src="{{asset('admin/plugins/daterangepicker/daterangepicker.js')}}"></script>
 </body>
 <script  type="text/javascript">
     $.ajaxSetup({
@@ -67,4 +75,14 @@
         });
     });
 </script>
+<script>
+    $(function() {
+        $('input[name="daterange"]').daterangepicker({
+            opens: 'left'
+        }, function(start, end, label) {
+            console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+        });
+    });
+</script>
 </html>
+

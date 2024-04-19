@@ -17,7 +17,10 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <!-- Summernote -->
     <link rel="stylesheet" href="{{asset('admin/plugins/summernote/summernote-bs4.min.css')}}">
-
+    <!-- daterange picker -->
+    <link rel="stylesheet" href="{{asset('admin/plugins/daterangepicker/daterangepicker.css')}}">
+    <!-- jQuery -->
+    <script src="{{asset('admin/plugins/jquery/jquery.min.js')}}"></script>
 </head>
 <body class="hold-transition sidebar-mini">
 <!-- Site wrapper -->

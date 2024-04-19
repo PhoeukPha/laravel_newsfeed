@@ -3,18 +3,39 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Article;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('admin.index');
+        if ($request->isMethod('post')){
+            $date = explode('-', $request->input('daterange'));
+            $date_f = date("Y-m-d", strtotime($date['0']));
+            $date_t = date("Y-m-d", strtotime($date['1']));
+            $view = DB::table("articles")
+                ->select(DB::raw('sum(viewer) as total'),DB::raw('date(created_at) as dates'))
+                ->whereBetween(DB::raw('DATE(created_at)'), [$date_f, $date_t])
+                ->groupBy('dates')
+                ->orderBy('dates','asc')
+                ->get();
+        }
+        else{
+            $view = DB::table("articles")
+                ->select(DB::raw('sum(viewer) as total'),DB::raw('date(created_at) as dates'))
+                ->where('created_at', '>=', DB::raw('DATE(NOW()) - INTERVAL 10 DAY'))
+                ->groupBy('dates')
+                ->orderBy('dates','asc')
+                ->get();
+        }
+        return view('admin.index',compact('view'));
     }
 
     /**

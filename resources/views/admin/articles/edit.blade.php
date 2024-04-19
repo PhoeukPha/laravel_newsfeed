@@ -51,7 +51,7 @@
                                         <div class="form-group">
                                             <label for="sub_category_id">{{__('Sub Category')}}</label>
                                             <select class="form-control select2" id="sub_category_id" name="sub_category_id">
-                                                <option >{{__('Select')}}</option>
+                                                <option value="">{{__('Select')}}</option>
                                                 @foreach(App\Models\SubCategory::orderby('id','desc')->where('status',1)->where('category_id',$data->category_id)->get() as $cat)
                                                     <option value="{{$cat->id}}" @if($cat->id == $data->sub_category_id) selected @endif>{{$cat->name}}</option>
                                                 @endforeach

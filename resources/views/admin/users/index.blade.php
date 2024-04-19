@@ -38,7 +38,7 @@
                         <div class="card-body">
                             <div class="table-responsive-sm">
                                 <div class="dataTabkes_wrapper ">
-                                    <table id="table_roles" class="table table-bordered table-striped table-hover table-sm">
+                                    <table id="table_roles" class="table table-bordered table-striped table-hover table-sm datatable">
                                         <thead>
                                         <tr>
                                             <th class="th-header" style="width: 50px">{{__('No')}}</th>

@@ -20,4 +20,20 @@ class Article extends Model
     public function subcategory(){
         return $this->belongsTo(SubCategory::class,'sub_category_id');
     }
+
+    public function scopeSearch($query, $title = null, $category_id = null, $sub_category_id = null){
+
+        if ( !empty($title) ) {
+            $query->where('title', 'like','%'.$title.'%');
+        }
+
+        if ( !empty($category_id) ) {
+            $query->where('category_id', $category_id);
+        }
+
+        if ( !empty($singer_id) ) {
+            $query->where('sub_category_id', $sub_category_id);
+        }
+        return $query;
+    }
 }

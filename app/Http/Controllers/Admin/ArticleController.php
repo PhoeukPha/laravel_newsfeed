@@ -6,7 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\Article;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ArticlesExport;
 use File;
+use Symfony\Component\Console\Input\Input;
 
 class ArticleController extends Controller
 {
@@ -26,11 +30,27 @@ class ArticleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = Article::orderby('created_at','desc')->get();
+        $perPage = $request->query('per_page') ?? 10;
+        if ($request->query('title') || $request->query('menu_id')) {
+            $data = Article::search(
+                $request->query('title'),
+                $request->query('menu_id')
+            )->paginate($perPage);
+        }
+        else if ($request->has('daterange')){
+            $date = explode('-', $request->input('daterange'));
+            $date_f = date("Y-m-d", strtotime($date['0']));
+            $date_t = date("Y-m-d", strtotime($date['1']));
+            $data = Article::whereBetween('created_at', [$date_f, $date_t])->paginate($perPage);
+        }
+        else{
+            $data = Article::orderby('created_at','desc')->paginate($perPage);
+        }
 
-        return view('admin.articles.index',compact('data'));
+        return view('admin.articles.index',compact('data'))->with('i', ($request->input('page', 1) - 1) * $perPage);
+    
     }
 
     /**
@@ -56,7 +76,6 @@ class ArticleController extends Controller
             'body' => 'required',
             'thumbnail.*' => 'required'
         ]);
-
 //        Thumbnail
         $img = $request->file('thumbnail');
         $imgName = date('YmdHis').'.'.$img->getClientOriginalExtension();
@@ -112,9 +131,7 @@ class ArticleController extends Controller
             'body' => 'required',
             'thumbnail.*' => 'required'
         ]);
-
         $data = Article::findOrFail(decrypt($id));
-
         if ($request->hasFile('thumbnail')){
             $path = public_path('/frontend/assets/images/thumbnail/'.$data->thumbnail);
             if (File::exists($path)){
@@ -127,7 +144,6 @@ class ArticleController extends Controller
         }else{
             $imgName = $data->thumbnail;
         }
-
         $data->update([
             'title' => $request->input('title'),
             'category_id' => $request->input('category_id'),
@@ -135,7 +151,6 @@ class ArticleController extends Controller
             'body' => $request->input('body'),
             'thumbnail' => $imgName,
         ]);
-
         return redirect()->route('articles.index')->with('success','Article Updated Successful.');
     }
 
@@ -164,7 +179,12 @@ class ArticleController extends Controller
     }
     public function changeStatus (Request $request){
         $data = Article::find($request->id)->update(['status' => $request->status]);
-
         return response()->json(['success','Status Change Successful']);
+    }
+    public function export(Request $request)
+    {
+        $from_date= $request->input;
+        $to_date = $request->to_date;
+        return Excel::download(new ArticlesExport($from_date, $to_date), date('Y-m-d-h-i-s').'.xlsx');
     }
 }
